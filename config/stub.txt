@@ -1,0 +1,7 @@
+read constantsCount:int
+loop constantsCount read name:word(256) value:word(256)
+write fen
+
+gameloop
+read board:word(256) color:word(1) castling:word(4) enPassant:word(2) halfMoveClock:int fullMove:int
+write random

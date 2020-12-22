@@ -1,0 +1,213 @@
+<div id="statement_back" class="statement_back" style="display:none"></div>
+<div class="statement-body">
+  <!-- GOAL -->
+  <div class="statement-section statement-goal">
+    <h1>
+      <span class="icon icon-goal">&nbsp;</span>
+      <span>The Game</span>
+    </h1>
+    <div class="statement-goal-content">
+      <p>Chess, the Game of Kings, is a classical board game that has been played for centuries, and has also been a cornerstone of artificial intelligence development for decades. You can easily learn all about how this game is played by doing an online search or reading this <a href='https://en.wikipedia.org/wiki/Chess'>Wikipedia article</a>.</p>
+      <br>
+      <p>This Codingame implementation makes use of the <a href='https://en.wikipedia.org/wiki/Chess960'>Chess960</a> rules, also known as Fischer Random Chess, where the initial starting position is randomly shuffled among 960 possibilities. This is done to promote variety as well as to prevent the hardcoding of initial moves using an opening book.</p>
+      <br>
+      <p style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>Additionally, the rules of the <a href='https://en.wikipedia.org/wiki/Crazyhouse'>Crazyhouse</a> chess variant have been added to the game.</p>
+      <br>
+      <p>Special thanks to the <a href='http://mip.noekeon.org/HTMLTTChess/chess_merida_unicode.html'>Chess Merida Unicode</a> font for the rendering of piece graphics and <a href='https://commons.wikimedia.org/wiki/File:Chess_Set.jpg'>Wikimedia Commons</a> for the cover picture.</p>
+    </div>
+  </div>
+  <!-- RULES -->
+  <div class="statement-section statement-rules">
+    <h1>
+      <span class="icon icon-rules">&nbsp;</span>
+      <span>Rules</span>
+    </h1>
+    <div>
+      <div class="statement-rules-content">
+        <p>Play <const>2</const> games against your opponent, once as each color  using the same starting position, where a win gives <const>1</const> point and a draw gives <const>½</const> point.</p>
+        <br>
+        <p>If any of the following happens, the current game will result into a draw:</p>
+        <ul>
+          <li>A player is unable to make a legal move while their king is not being under check, a <a href='https://en.wikipedia.org/wiki/Stalemate'>Stalemate</a> occurs.
+          <li>The same position occurring for the third time, also known as a <a href='https://en.wikipedia.org/wiki/Threefold_repetition'>Threefold Repetition</a>.</li>
+          <li>There is insufficient material for either player to deliver a checkmate. This includes:
+            <ul>
+              <li>King vs king</li>
+              <li>King+knight vs king</li>
+              <li>King+bishop vs king</li>
+              <li>King+bishop vs king+bishop if both bishops are on the same square color.</li>
+            </ul>
+          </li>
+          <li>No piece capture and no pawn has moved for 50 moves, using the <a href='https://en.wikipedia.org/wiki/Fifty-move_rule'>Fifty-Move rule</a>.</li>
+          <li>After <var>maxMoves</var> are played.</li>
+          <li>If one side offers a draw and the other side accepts it, also known as a draw by agreement.
+        </ul>
+        <br>
+        <div class="statement-victory-conditions">
+          <div class="icon victory"></div>
+          <div class="blk">
+            <div class="title">Victory Conditions</div>
+            <div class="text">
+              <ul>
+                <li>You complete both matches having more points than your opponent.</li>
+                <li>Your opponent loses.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="statement-lose-conditions">
+          <div class="icon lose"></div>
+          <div class="blk">
+            <div class="title">Defeat Conditions</div>
+            <div class="text">
+              <ul>
+                <li>You attempt to make an illegal move.</li>
+                <li>You do not provide an output in the alloted time.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+  <!-- EXPERT RULES -->
+  <div class="statement-section statement-expertrules">
+    <h1>
+      <span class="icon icon-expertrules">&nbsp;</span>
+      <span>Technical details</span>
+    </h1>
+    <div class="statement-expert-rules-content">
+      <ul>
+        <li>The current game state is encoded as a single line using the <a href='https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation'>Forsyth–Edwards Notation</a>, hereby referred to as FEN.</li>
+        <li>Game moves are internally encoded as done in the <a href='https://en.wikipedia.org/wiki/Universal_Chess_Interface'>Universal Chess Interface</a> protocol, hereby referred to as UCI.</li>
+        <li>Game moves are displayed in the viewer using the <a href='https://en.wikipedia.org/wiki/Algebraic_notation_(chess)'>Algebraic Notation</a>.</li>
+        <li>Piece characters are using the english language, therefore N for knights, B for bishops, R for rooks, Q for queens and K for kings.</li> 
+        <li>You can access and copy/paste the FEN of the current position and PGN (<a href='https://en.wikipedia.org/wiki/Portable_Game_Notation'>Portable Game Notation</a>) of both games by opening the settings panel (<img style="opacity:.8;background:#20252a;"
+        height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18">).</li>
+        <li>You can force the initial position to be the classical one by specifying <const>seed=0</const> in the game options.
+      </ul>
+      <p>The source code of this game is available on <a href='https://github.com/recurs3/codingame-chess/'>GitHub</a>.</p>
+    </div>
+  </div>
+  <!-- EXAMPLES -->
+  <div class="statement-section statement-examples">
+    <h1>
+      <span class="icon icon-example">&nbsp;</span>
+      <span>Notes and examples</span>
+    </h1>
+    <div class="statement-examples-text">
+      <p>Draw offers only last for one turn. If the opponent does not accept it, it is revoked.</p>
+      <br>
+      <h1>Input</h1>
+      <p>Because of Chess960, the castling field of the FEN string does not make use of <const>KQkq</const>. The column names are used instead, so the classical castling positions would be encoded as <const>AHah</const>.</p>
+      <br>
+      <p>The presence of an en-passant square in the FEN does not mean that a legal en-passant capture is possible.</p>
+      <br>
+      <p style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>There is no official standard for encoding the reserve and promoted pieces of Crazyhouse in FEN. For this implementation, the Lichess standard is followed.
+        <ul>
+          <li style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>The reserve pieces are added as an additional row after the bottom row of the board.</li>
+          <li style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>A promoted piece has the symbol ~ appended to it. This is to indicate capturing this piece will add a pawn to the reserve instead of the piece itself.</li>
+        </ul>
+      </p>
+      <br>
+      <h1>Output</h1>
+      <p>As mentioned above, specifying the move to make is done through the UCI protocol. It is simply the source square immediately followed by the destination square. For example, the classical king's pawn opening 1. e4 would be encoded as <const>e2e4</const>.</p>
+      <br>
+      <p>Piece promotion is specified by appending the piece character at the end. For example, <const>h7h8q</const> would promote the white h pawn to a queen.</p>
+      <br>
+      <p>Castling is done as a king moving to its own rook. In a classical starting position, a king-side castling would be <const>e1h1</const>, and a queen-side castling would be <const>e1a1</const>. Because of the Chess960 setup, a king moving by 2 squares to signal castling is <b>not</b> allowed.</p>
+      <br>
+      <p>You can make use of the <var>moves</var> input to validate your own move generation and the move you make as output.</p>
+      <br>
+      <p style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>A drop piece move is encoded by the piece type, followed by <const>@</const> and the destination square. For example, dropping a knight at the <const>g4</const> square would be encoded as <const>N@g4</const>.</p>
+    </div>
+
+  </div>
+  <!-- PROTOCOL -->
+  <div class="statement-section statement-protocol">
+    <h1>
+      <span class="icon icon-protocol">&nbsp;</span>
+      <span>Game Protocol</span>
+    </h1>
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="text">The first turn is used for the referee to communicate the <b>game constants</b> and for the bot to configure its desired <b>inputs</b>.</div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Input</div>
+      <div class="text">
+        <p><span class="statement-lineno">Line 1: </span> <var>constantsCount</var>, the number of constants communicated by the game referee.</p>
+        <p><span class="statement-lineno">Next <var>constantsCount</var> lines: </span> <const>2</const> space-separated values indicating the <var>name</var> and <var>value</var> of the constant.</p>
+        <br>
+        <p>Currently defined constants are:</p>
+        <li><var>crazy</var>: Boolean integer with <const>0</const> as false and <const>1</const> as true, indicating whether crazyhouse rules are enabled. <span style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>Always <const>1</const> for this arena.</span></li>
+        <li><var>maxMoves</var>: Integer indicating the maximum number of moves per player per game. After this, a draw will be forced as a game result. Currently set at <const>125</const>.
+      </div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Output</div>
+      <div class="text">
+        <span class="statement-lineno">A single line</span> configuring which inputs will be sent by the referee on each game turn. You can write any of the following values separated with spaces to receive the associated input.
+        <ul>
+          <li><const>fen</const>: The <a href='https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation'>FEN representation</a> of the current game. <b>Strongly recommended</b>.</li>
+          <li><const>moves</const>: The list of legal moves.</li>
+          <li><const>lastmove</const>: The last move made by the opponent.</li>
+          <li><const>draw</const>: Whether the opponent has made a draw offer.</li>
+          <li><const>game</const>: The game number currently being played.
+          <li><const>score</const>: The current score for each player.
+        </ul>
+        <br>
+      </div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="text">For all the following turns this protocol is used to play out the games.</div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Input</div>
+      <div class="text">
+        <p>The values sent are in accordance with the configuration sent on the first turn.</p>
+        <ul>
+          <li><var>fen</var>: A line containing <const>6</const> fields <var>board</var> <var>color</var> <var>castling</var> <var>enPassant</var> <var>halfMoveClock</var> <var>fullMove</var> separated with spaces, representing a <a href='https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation'>FEN string</a>.</li>
+          <li><var>moves</var>: A line containing an integer <var>movesCount</var>, followed by <var>movesCount</var> lines having one <var>move</var> per line, a string with a UCI move.</li>
+          <li><var>lastmove</var>: A line with a string containing the UCI move played by the opponent last turn, or <const>none</const> if it is the first turn of the game.</li>
+          <li><var>draw</var>: A line containing a boolean integer, <const>1</const> if a draw was offered last turn by the opponent, <const>0</const> otherwise.</li>
+          <li><var>game</var>: A line containing an integer representing the current game number, starting at <const>1</const> for the first game.</li>
+          <li><var>score</var>: A line containing <const>2</const> integers separated by a space, the score of the current player followed by the score of the opponent. The score is given in half-points, so <const>½</const> = <const>1</const>.
+        </ul>
+      </div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Output</div>
+      <div class="text">
+        <span class="statement-lineno">A single line</span> with the move to be made, encoded with the UCI protocol.
+        <ul>
+          <li>A comment can be added to be displayed in the viewer by adding a space after the move and writing its content.</li>
+          <li>You can offer a draw to your opponent by adding <const>=</const> right after the move, without a space.</li>
+          <li>You can accept a draw offer by outputting <const>draw</const> instead of a move. Note that this is only legal if a draw offer was made the previous turn! Make sure to check the input first.</li>
+          <li>You can resign the current game by outputting <const>resign</const> instead of a move. This will proceed to the next game or end the match if no more is to be played.</li>
+          <li>You can play a random move by outputting <const>random</const> instead of a move. This is admittedly only useful for stub code generation.</li>
+        </ul>
+        <br>
+      </div>
+    </div>
+
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Constraints</div>
+      <div class="text">
+        Response time per turn ≤ <const>50</const> milliseconds.<br>
+        Response time for the first turn ≤ <const>1</const> second.</div>
+    </div>
+  </div>
+</div>
