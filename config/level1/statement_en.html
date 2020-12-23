@@ -37,7 +37,7 @@
             </ul>
           </li>
           <li>No piece capture and no pawn has moved for 50 moves, using the <a href='https://en.wikipedia.org/wiki/Fifty-move_rule'>Fifty-Move rule</a>.</li>
-          <li>After <var>maxMoves</var> are played.</li>
+          <li>After <var>maxMoves</var> moves are played.</li>
           <li>If one side offers a draw and the other side accepts it, also known as a draw by agreement.
         </ul>
         <br>
@@ -80,7 +80,7 @@
         <li>The current game state is encoded as a single line using the <a href='https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation'>Forsyth–Edwards Notation</a>, hereby referred to as FEN.</li>
         <li>Game moves are internally encoded as done in the <a href='https://en.wikipedia.org/wiki/Universal_Chess_Interface'>Universal Chess Interface</a> protocol, hereby referred to as UCI.</li>
         <li>Game moves are displayed in the viewer using the <a href='https://en.wikipedia.org/wiki/Algebraic_notation_(chess)'>Algebraic Notation</a>.</li>
-        <li>Piece characters are using the english language, therefore N for knights, B for bishops, R for rooks, Q for queens and K for kings.</li> 
+        <li>Piece characters are using the english language, therefore P for pawns, N for knights, B for bishops, R for rooks, Q for queens and K for kings.</li> 
         <li>You can access and copy/paste the FEN of the current position and PGN (<a href='https://en.wikipedia.org/wiki/Portable_Game_Notation'>Portable Game Notation</a>) of both games by opening the settings panel (<img style="opacity:.8;background:#20252a;"
         height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18">).</li>
         <li>You can force the initial position to be the classical one by specifying <const>seed=0</const> in the game options.
@@ -132,7 +132,7 @@
         <p><span class="statement-lineno">Next <var>constantsCount</var> lines: </span> <const>2</const> space-separated values indicating the <var>name</var> and <var>value</var> of the constant.</p>
         <br>
         <p>Currently defined constants are:</p>
-        <li><var>crazy</var>: Boolean integer with <const>0</const> as false and <const>1</const> as true, indicating whether crazyhouse rules are enabled. Always <const>0</const> for this arena.</li>
+        <li><var>crazyHouse</var>: Boolean integer with <const>0</const> as false and <const>1</const> as true, indicating whether crazyhouse rules are enabled. Always <const>0</const> for this arena.</li>
         <li><var>maxMoves</var>: Integer indicating the maximum number of moves per player per game. After this, a draw will be forced as a game result. Currently set at <const>125</const>.
       </div>
     </div>
@@ -141,7 +141,7 @@
     <div class="blk">
       <div class="title">Output</div>
       <div class="text">
-        <span class="statement-lineno">A single line</span> configuring which inputs will be sent by the referee on each game turn. You can write any of the following values separated with spaces to receive the associated input.
+        <span class="statement-lineno">A single line</span> configuring which inputs will be sent by the referee on each game turn. You can write any of the following values separated with spaces to receive the associated input, in the same order that is given.
         <ul>
           <li><const>fen</const>: The <a href='https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation'>FEN representation</a> of the current game. <b>Strongly recommended</b>.</li>
           <li><const>moves</const>: The list of legal moves.</li>
@@ -163,7 +163,7 @@
     <div class="blk">
       <div class="title">Input</div>
       <div class="text">
-        <p>The values sent are in accordance with the configuration sent on the first turn.</p>
+        <p>The values sent are in accordance with the configuration sent on the first turn, in the same order they were given.</p>
         <ul>
           <li><var>fen</var>: A line containing <const>6</const> fields <var>board</var> <var>color</var> <var>castling</var> <var>enPassant</var> <var>halfMoveClock</var> <var>fullMove</var> separated with spaces, representing a <a href='https://en.wikipedia.org/wiki/Forsyth-Edwards_Notation'>FEN string</a>.</li>
           <li><var>moves</var>: A line containing an integer <var>movesCount</var>, followed by <var>movesCount</var> lines having one <var>move</var> per line, a string with a UCI move.</li>
