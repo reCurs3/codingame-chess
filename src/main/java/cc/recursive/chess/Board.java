@@ -255,6 +255,9 @@ public class Board {
 
     // Computes whether either side has enough material to deliver a checkmate in theory. https://en.wikipedia.org/wiki/Draw_(chess)#Draws_in_all_games
     public boolean hasSufficientMaterial() {
+        // Can always drop pieces in crazyhouse.
+        if (crazyHouse) return true;
+        
         Piece lastPiece = null;
         Square lastSquare = null;
         for (int column = 0; column < Constants.Columns; column++) {
