@@ -40,8 +40,6 @@ public class Referee extends AbstractReferee {
         // Max turns don't actually matter, the total time does.
         gameManager.setMaxTurns(Integer.MAX_VALUE);
 
-        crazyHouse = gameManager.getLeagueLevel() == 2;
-
         ViewGlobalData viewGlobalData = new ViewGlobalData();
         viewGlobalData.setCrazyHouse(crazyHouse);
         gameManager.setViewGlobalData("chess", viewGlobalData);

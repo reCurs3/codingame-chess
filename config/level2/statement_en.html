@@ -11,8 +11,6 @@
       <br>
       <p>This Codingame implementation makes use of the <a href='https://en.wikipedia.org/wiki/Chess960'>Chess960</a> rules, also known as Fischer Random Chess, where the initial starting position is randomly shuffled among 960 possibilities. This is done to promote variety as well as to prevent the hardcoding of initial moves using an opening book.</p>
       <br>
-      <p style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>Additionally, the rules of the <a href='https://en.wikipedia.org/wiki/Crazyhouse'>Crazyhouse</a> chess variant have been added to the game.</p>
-      <br>
       <p>Special thanks to the <a href='http://mip.noekeon.org/HTMLTTChess/chess_merida_unicode.html'>Chess Merida Unicode</a> font for the rendering of piece graphics and <a href='https://commons.wikimedia.org/wiki/File:Chess_Set.jpg'>Wikimedia Commons</a> for the cover picture.</p>
     </div>
   </div>
@@ -30,6 +28,14 @@
         <ul>
           <li>A player is unable to make a legal move while their king is not being under check, a <a href='https://en.wikipedia.org/wiki/Stalemate'>Stalemate</a> occurs.
           <li>The same position occurring for the third time, also known as a <a href='https://en.wikipedia.org/wiki/Threefold_repetition'>Threefold Repetition</a>.</li>
+          <li>There is insufficient material for either player to deliver a checkmate. This includes:
+            <ul>
+              <li>King vs king</li>
+              <li>King+knight vs king</li>
+              <li>King+bishop vs king</li>
+              <li>King+bishop vs king+bishop if both bishops are on the same square color.</li>
+            </ul>
+          </li>
           <li>No piece capture and no pawn has moved for 50 moves, using the <a href='https://en.wikipedia.org/wiki/Fifty-move_rule'>Fifty-Move rule</a>.</li>
           <li>After <var>maxMoves</var> moves are played.</li>
           <li>If one side offers a draw and the other side accepts it, also known as a draw by agreement.
@@ -96,13 +102,6 @@
       <br>
       <p>The presence of an en-passant square in the FEN does not mean that a legal en-passant capture is possible.</p>
       <br>
-      <p style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>There is no official standard for encoding the reserve and promoted pieces of Crazyhouse in FEN. For this implementation, the Lichess standard is followed.
-        <ul>
-          <li style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>The reserve pieces are added as an additional row after the bottom row of the board.</li>
-          <li style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>A promoted piece has the symbol ~ appended to it. This is to indicate capturing this piece will add a pawn to the reserve instead of the piece itself.</li>
-        </ul>
-      </p>
-      <br>
       <h1>Output</h1>
       <p>As mentioned above, specifying the move to make is done through the UCI protocol. It is simply the source square immediately followed by the destination square. For example, the classical king's pawn opening 1. e4 would be encoded as <const>e2e4</const>.</p>
       <br>
@@ -111,10 +110,19 @@
       <p>Castling is done as a king moving to its own rook. In a classical starting position, a king-side castling would be <const>e1h1</const>, and a queen-side castling would be <const>e1a1</const>. Because of the Chess960 setup, a king moving by 2 squares to signal castling is <b>not</b> allowed.</p>
       <br>
       <p>You can make use of the <var>moves</var> input to validate your own move generation and the move you make as output.</p>
-      <br>
-      <p style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>A drop piece move is encoded by the piece type, followed by <const>@</const> and the destination square. For example, dropping a knight at the <const>g4</const> square would be encoded as <const>N@g4</const>.</p>
     </div>
-
+  </div>
+  <!-- EXAMPLES -->
+  <div class="statement-section statement-examples">
+    <h1>
+      <span class="icon icon-example">&nbsp;</span>
+      <span>External resources</span>
+    </h1>
+    <div class="statement-examples-text">
+      <ul>
+        <li><a href="https://www.chessprogramming.org/">Chess programming wiki</a></li>
+      </ul>
+    </div>
   </div>
   <!-- PROTOCOL -->
   <div class="statement-section statement-protocol">
@@ -135,7 +143,7 @@
         <p><span class="statement-lineno">Next <var>constantsCount</var> lines: </span> <const>2</const> space-separated values indicating the <var>name</var> and <var>value</var> of the constant.</p>
         <br>
         <p>Currently defined constants are:</p>
-        <li><var>crazyHouse</var>: Boolean integer with <const>0</const> as false and <const>1</const> as true, indicating whether crazyhouse rules are enabled. <span style='color:#7cc576;background-color:rgba(124,197,118,0.1);padding:2px'>Always <const>1</const> for this arena.</span></li>
+        <li><var>crazyHouse</var>: Boolean integer with <const>0</const> as false and <const>1</const> as true, indicating whether crazyhouse rules are enabled. Always <const>0</const> for this arena.</li>
         <li><var>maxMoves</var>: Integer indicating the maximum number of moves per player per game. After this, a draw will be forced as a game result. Currently set at <const>125</const>.
       </div>
     </div>
